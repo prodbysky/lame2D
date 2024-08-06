@@ -23,7 +23,13 @@ int run(lame2D::Window window) {
         case lame2D::EventType::MouseMove: {
             std::cerr << event.mouse_move.x << '\n';
             std::cerr << event.mouse_move.y << '\n';
+            break;
         };
+        case lame2D::EventType::KeyboardDown: {
+            std::cerr << lame2D::to_underlying(event.keyboard_down.k) << '\n';
+            break;
+        };
+
         default:
             break;
         }

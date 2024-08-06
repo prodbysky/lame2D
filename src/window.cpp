@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_render.h>
 #include <cstdint>
 #include <iostream>
@@ -63,10 +64,155 @@ namespace lame2D {
             break;
         };
         case SDL_MOUSEMOTION: {
-            event.type            = lame2D::EventType::MouseMove;
-            event.mouse_move.type = lame2D::EventType::MouseMove;
-            event.mouse_move.x    = e.motion.x;
-            event.mouse_move.y    = e.motion.y;
+            event.type         = lame2D::EventType::MouseMove;
+            event.mouse_move.x = e.motion.x;
+            event.mouse_move.y = e.motion.y;
+            break;
+        };
+        case SDL_KEYDOWN: {
+            event.type = lame2D::EventType::KeyboardDown;
+            switch (e.key.keysym.sym) {
+            case (SDLK_a): {
+                event.keyboard_down.k = lame2D::Key::A;
+                break;
+            };
+
+            case (SDLK_d): {
+                event.keyboard_down.k = lame2D::Key::D;
+                break;
+            };
+
+            case (SDLK_s): {
+                event.keyboard_down.k = lame2D::Key::S;
+                break;
+            };
+
+            case (SDLK_w): {
+                event.keyboard_down.k = lame2D::Key::W;
+                break;
+            };
+            case (SDLK_q): {
+                event.keyboard_down.k = lame2D::Key::Q;
+                break;
+            };
+            case (SDLK_e): {
+                event.keyboard_down.k = lame2D::Key::E;
+                break;
+            };
+            case (SDLK_r): {
+                event.keyboard_down.k = lame2D::Key::R;
+                break;
+            };
+            case (SDLK_f): {
+                event.keyboard_down.k = lame2D::Key::F;
+                break;
+            };
+            case (SDLK_t): {
+                event.keyboard_down.k = lame2D::Key::T;
+                break;
+            };
+            case (SDLK_g): {
+                event.keyboard_down.k = lame2D::Key::G;
+                break;
+            };
+            case (SDLK_y): {
+                event.keyboard_down.k = lame2D::Key::Y;
+                break;
+            };
+            case (SDLK_h): {
+                event.keyboard_down.k = lame2D::Key::H;
+                break;
+            };
+            case (SDLK_u): {
+                event.keyboard_down.k = lame2D::Key::U;
+                break;
+            };
+            case (SDLK_j): {
+                event.keyboard_down.k = lame2D::Key::J;
+                break;
+            };
+            case (SDLK_i): {
+                event.keyboard_down.k = lame2D::Key::I;
+                break;
+            };
+            case (SDLK_k): {
+                event.keyboard_down.k = lame2D::Key::K;
+                break;
+            };
+            case (SDLK_o): {
+                event.keyboard_down.k = lame2D::Key::O;
+                break;
+            };
+            case (SDLK_l): {
+                event.keyboard_down.k = lame2D::Key::L;
+                break;
+            };
+            case (SDLK_p): {
+                event.keyboard_down.k = lame2D::Key::P;
+                break;
+            };
+            case (SDLK_SEMICOLON): {
+                event.keyboard_down.k = lame2D::Key::SemiColon;
+                break;
+            };
+            case (SDLK_LEFTBRACKET): {
+                event.keyboard_down.k = lame2D::Key::LeftBracket;
+                break;
+            };
+            case (SDLK_QUOTE): {
+                event.keyboard_down.k = lame2D::Key::Quote;
+                break;
+            };
+            case (SDLK_RIGHTBRACKET): {
+                event.keyboard_down.k = lame2D::Key::RightBracket;
+                break;
+            };
+            case (SDLK_BACKSLASH): {
+                event.keyboard_down.k = lame2D::Key::BackSlash;
+                break;
+            };
+            case (SDLK_z): {
+                event.keyboard_down.k = lame2D::Key::Z;
+                break;
+            };
+            case (SDLK_x): {
+                event.keyboard_down.k = lame2D::Key::X;
+                break;
+            };
+            case (SDLK_c): {
+                event.keyboard_down.k = lame2D::Key::C;
+                break;
+            };
+            case (SDLK_v): {
+                event.keyboard_down.k = lame2D::Key::V;
+                break;
+            };
+            case (SDLK_b): {
+                event.keyboard_down.k = lame2D::Key::B;
+                break;
+            };
+            case (SDLK_n): {
+                event.keyboard_down.k = lame2D::Key::N;
+                break;
+            };
+            case (SDLK_m): {
+                event.keyboard_down.k = lame2D::Key::M;
+                break;
+            };
+            case (SDLK_COMMA): {
+                event.keyboard_down.k = lame2D::Key::Comma;
+                break;
+            };
+            case (SDLK_PERIOD): {
+                event.keyboard_down.k = lame2D::Key::Period;
+                break;
+            };
+            case (SDLK_SLASH): {
+                event.keyboard_down.k = lame2D::Key::Slash;
+                break;
+            };
+            }
+            break;
         };
         }
         return event;
