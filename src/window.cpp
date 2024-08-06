@@ -1,6 +1,7 @@
 #include "../include/window.hpp"
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
 #include <cstdint>
 #include <iostream>
@@ -12,24 +13,11 @@ namespace lame2D {
         m_window   = nullptr;
     }
 
-    /**
-     * You should noly really use this function if you want to setup SDL2
-     * manually
-     */
     Window::Window(SDL_Window* window, SDL_Renderer* renderer) {
         m_renderer = renderer;
         m_window   = window;
     }
 
-    /**
-     * Create a new Window based on SDL2's window and renderer
-     * @param w Window width
-     * @param h Window height
-     * @param title Window title
-     * @param vsync Use VSync?
-     * @return std::optional with a value of window, or none if creating the
-     * window has failed
-     */
     std::optional<Window> Window::New(uint16_t w, uint16_t h, const char* title,
                                       bool vsync) {
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -56,5 +44,31 @@ namespace lame2D {
         }
 
         return std::make_optional<Window>(window, renderer);
+    }
+
+    bool Window::ShouldClose() { return m_should_close; }
+
+    lame2D::Event Window::PollEvent() {
+        SDL_Event e;
+        lame2D::Event event;
+        event.type = lame2D::EventType::Zero;
+        if (SDL_PollEvent(&e) == 0) {
+            event.type = lame2D::EventType::No;
+            return event;
+        }
+
+        switch (e.type) {
+        case SDL_QUIT: {
+            m_should_close = true;
+            break;
+        };
+        case SDL_MOUSEMOTION: {
+            event.type            = lame2D::EventType::MouseMove;
+            event.mouse_move.type = lame2D::EventType::MouseMove;
+            event.mouse_move.x    = e.motion.x;
+            event.mouse_move.y    = e.motion.y;
+        };
+        }
+        return event;
     }
 } // namespace lame2D
