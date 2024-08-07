@@ -26,9 +26,11 @@ namespace lame2D {
         SDL_DestroyWindow(m_window);
     }
 
+    // NOTE: When I will need audio, timers, etc., I'll probably make it
+    // initialize the subsystems lazily
     std::optional<Window> Window::New(uint16_t w, uint16_t h, const char* title,
                                       bool vsync) {
-        if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        if (SDL_Init(SDL_INIT_VIDEO) != 0) {
             std::cerr << "Failed to initialize SDL: " << SDL_GetError() << '\n';
             return {};
         }
