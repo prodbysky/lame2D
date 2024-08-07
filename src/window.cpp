@@ -21,6 +21,11 @@ namespace lame2D {
         m_window   = window;
     }
 
+    Window::~Window() {
+        SDL_DestroyRenderer(m_renderer);
+        SDL_DestroyWindow(m_window);
+    }
+
     std::optional<Window> Window::New(uint16_t w, uint16_t h, const char* title,
                                       bool vsync) {
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -28,8 +33,9 @@ namespace lame2D {
             return {};
         }
 
-        SDL_Window* window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
-                                              SDL_WINDOWPOS_CENTERED, w, h, 0);
+        SDL_Window* window =
+            SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
+                             SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_SHOWN);
 
         if (window == nullptr) {
             std::cerr << "Failed to create window: " << SDL_GetError() << '\n';

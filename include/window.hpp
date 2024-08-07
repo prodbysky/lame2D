@@ -14,6 +14,7 @@ namespace lame2D {
     public:
         Window();
         Window(SDL_Window* window, SDL_Renderer* renderer);
+        ~Window();
 
     public:
         static std::optional<Window> New(uint16_t w, uint16_t h,
