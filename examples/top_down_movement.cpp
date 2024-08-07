@@ -16,8 +16,9 @@ int main() {
 }
 
 int run(lame2D::Window window) {
-    lame2D::Rectangle<int, int> player({.x = 120, .y = 240},
-                                       {.x = 64, .y = 64});
+    lame2D::Rectangle<double, int> player({.x = 120, .y = 240},
+                                          {.x = 64, .y = 64});
+    lame2D::Vector2<double> velocity = lame2D::Vector2<double>::Zero();
     lame2D::Color color(0xaaaa00ff);
 
     while (!window.ShouldClose()) {
@@ -28,19 +29,42 @@ int run(lame2D::Window window) {
             case lame2D::EventType::KeyboardDown: {
                 switch (event.keyboard_down.k) {
                 case lame2D::Key::W: {
-                    player.pos.y -= 10;
+                    velocity.y = -1;
                     break;
                 };
                 case lame2D::Key::A: {
-                    player.pos.x -= 10;
+                    velocity.x = -1;
                     break;
                 };
                 case lame2D::Key::S: {
-                    player.pos.y += 10;
+                    velocity.y = 1;
                     break;
                 };
                 case lame2D::Key::D: {
-                    player.pos.x += 10;
+                    velocity.x = 1;
+                    break;
+                };
+                default:
+                    break;
+                }
+                break;
+            };
+            case lame2D::EventType::KeyboardUp: {
+                switch (event.keyboard_up.k) {
+                case lame2D::Key::W: {
+                    velocity.y = 0;
+                    break;
+                };
+                case lame2D::Key::A: {
+                    velocity.x = 0;
+                    break;
+                };
+                case lame2D::Key::S: {
+                    velocity.y = 0;
+                    break;
+                };
+                case lame2D::Key::D: {
+                    velocity.x = 0;
                     break;
                 };
                 default:
@@ -53,6 +77,9 @@ int run(lame2D::Window window) {
             }
             event = window.PollEvent();
         }
+
+        const lame2D::Vector2<double> mul  = {.x = 0.03, .y = 0.03};
+        player.pos                        += velocity * mul;
 
         window.Clear(lame2D::Color(0x181818ff));
         window.DrawRectangle(player, color);
