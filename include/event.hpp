@@ -2,7 +2,13 @@
 #include <type_traits>
 
 namespace lame2D {
-    enum class EventType : uint8_t { Zero, No, MouseMove, KeyboardDown };
+    enum class EventType : uint8_t {
+        Zero,
+        No,
+        MouseMove,
+        KeyboardDown,
+        KeyboardUp
+    };
 
     enum class Key : char {
         W            = 'w',
@@ -62,11 +68,17 @@ namespace lame2D {
         Key k;
     };
 
+    struct KeyboardUpEvent {
+        EventType type;
+        Key k;
+    };
+
     union Event {
         EventType type;
         NoEvent no;
         MouseMoveEvent mouse_move;
         KeyboardDownEvent keyboard_down;
+        KeyboardUpEvent keyboard_up;
     };
 
 } // namespace lame2D
