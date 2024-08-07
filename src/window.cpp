@@ -3,7 +3,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_keycode.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
 #include <cstdint>
 #include <iostream>
 #include <optional>
@@ -36,7 +38,7 @@ namespace lame2D {
 
         SDL_Renderer* renderer = SDL_CreateRenderer(
             window, -1,
-            SDL_RENDERER_ACCELERATED | (SDL_RENDERER_PRESENTVSYNC * vsync));
+            SDL_RENDERER_ACCELERATED | (SDL_RENDERER_PRESENTVSYNC & vsync));
 
         if (renderer == nullptr) {
             std::cerr << "Failed to create renderer: " << SDL_GetError()
@@ -48,6 +50,61 @@ namespace lame2D {
     }
 
     bool Window::ShouldClose() { return m_should_close; }
+
+    template <typename T, typename U>
+    void Window::DrawRectangle(const lame2D::Rectangle<T, U>& rect,
+                               const lame2D::Color& color) {
+        SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+
+        auto sdL_rect = SDL_Rect{.x = static_cast<int>(rect.pos.x),
+                                 .y = static_cast<int>(rect.pos.y),
+                                 .w = static_cast<int>(rect.size.x),
+                                 .h = static_cast<int>(rect.size.y)};
+        SDL_RenderFillRect(m_renderer, &sdL_rect);
+    }
+
+    void Window::Clear(const lame2D::Color& color) {
+        SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+
+        SDL_RenderClear(m_renderer);
+    }
+
+    void Window::Swap() { SDL_RenderPresent(m_renderer); }
+
+    // TODO: Find a diffrent way of restricting types
+    template void
+    Window::DrawRectangle<int, int>(const lame2D::Rectangle<int, int>& rect,
+                                    const lame2D::Color& color);
+
+    template void
+    Window::DrawRectangle<int, float>(const lame2D::Rectangle<int, float>& rect,
+                                      const lame2D::Color& color);
+
+    template void Window::DrawRectangle<int, double>(
+        const lame2D::Rectangle<int, double>& rect, const lame2D::Color& color);
+
+    template void
+    Window::DrawRectangle<float, int>(const lame2D::Rectangle<float, int>& rect,
+                                      const lame2D::Color& color);
+
+    template void Window::DrawRectangle<float, float>(
+        const lame2D::Rectangle<float, float>& rect,
+        const lame2D::Color& color);
+
+    template void Window::DrawRectangle<float, double>(
+        const lame2D::Rectangle<float, double>& rect,
+        const lame2D::Color& color);
+
+    template void Window::DrawRectangle<double, int>(
+        const lame2D::Rectangle<double, int>& rect, const lame2D::Color& color);
+
+    template void Window::DrawRectangle<double, float>(
+        const lame2D::Rectangle<double, float>& rect,
+        const lame2D::Color& color);
+
+    template void Window::DrawRectangle<double, double>(
+        const lame2D::Rectangle<double, double>& rect,
+        const lame2D::Color& color);
 
     lame2D::Event Window::PollEvent() {
         SDL_Event e;

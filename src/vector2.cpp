@@ -58,6 +58,7 @@ namespace lame2D {
         return os;
     }
 
+    // TODO: Find a diffrent way of restricting types
     template class Vector2<int>;
     template class Vector2<float>;
     template class Vector2<double>;
