@@ -4,7 +4,8 @@
 namespace lame2D {
     template <typename T, typename U> struct Rectangle {
     public:
-        Rectangle<T, U>(lame2D::Vector2<T> pos, lame2D::Vector2<U> size);
+        Rectangle<T, U>(lame2D::Vector2<T> pos, lame2D::Vector2<U> size) :
+            pos(pos), size(size) {}
 
     public:
         lame2D::Vector2<T> pos;
