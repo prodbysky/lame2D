@@ -2,6 +2,9 @@
 
 #include <cstdint>
 namespace lame2D {
+    /**
+     * A simple struct that represents a RGBA32 color
+     */
     struct Color {
     public:
         uint8_t r;

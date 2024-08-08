@@ -2,6 +2,7 @@
 #include <type_traits>
 
 namespace lame2D {
+    // TODO: More events
     enum class EventType : uint8_t {
         Zero,
         No,
@@ -9,6 +10,7 @@ namespace lame2D {
         KeyboardAction,
     };
 
+    // NOTE: Compress this if any possible?
     enum class Key : char {
         W            = 'w',
         A            = 'a',
@@ -46,6 +48,7 @@ namespace lame2D {
         Slash        = '/',
     };
 
+    // NOTE: Helper function to get the underlying data on a enum
     template <typename E>
     constexpr auto to_underlying(E e) ->
         typename std::underlying_type<E>::type {

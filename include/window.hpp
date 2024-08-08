@@ -12,6 +12,8 @@ namespace lame2D {
     class Window {
 
     public:
+        // NOTE: Do not use these constructors unless you need to initialize
+        // SDL2 yourself
         Window();
         Window(SDL_Window* window, SDL_Renderer* renderer);
         ~Window();

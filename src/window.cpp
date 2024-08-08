@@ -87,6 +87,8 @@ namespace lame2D {
             event.mouse_move.y = e.motion.y;
             break;
         };
+        // NOTE: I need to find a way to compress this, either a diffrent
+        // apporach or just stick with it...
         case SDL_KEYDOWN:
         case SDL_KEYUP: {
             event.type          = lame2D::EventType::KeyboardAction;
