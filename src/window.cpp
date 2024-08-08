@@ -59,13 +59,21 @@ namespace lame2D {
 
     bool Window::ShouldClose() { return m_should_close; }
 
+    double Window::GetDelta() { return m_dt; }
+
     void Window::Clear(const lame2D::Color& color) {
         SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 
         SDL_RenderClear(m_renderer);
     }
 
-    void Window::Swap() { SDL_RenderPresent(m_renderer); }
+    void Window::Swap() {
+        m_last_time    = m_current_time;
+        m_current_time = SDL_GetPerformanceCounter();
+        m_dt           = (m_current_time - m_last_time) /
+               static_cast<double>(SDL_GetPerformanceFrequency());
+        SDL_RenderPresent(m_renderer);
+    }
 
     lame2D::Event Window::PollEvent() {
         SDL_Event e;

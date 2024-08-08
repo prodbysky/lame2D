@@ -10,7 +10,6 @@
 
 namespace lame2D {
     class Window {
-
     public:
         // NOTE: Do not use these constructors unless you need to initialize
         // SDL2 yourself
@@ -39,11 +38,16 @@ namespace lame2D {
         void Swap();
         void Clear(const lame2D::Color& color);
 
+        double GetDelta();
+
         lame2D::Event PollEvent();
 
     private:
         SDL_Window* m_window;
         SDL_Renderer* m_renderer;
-        bool m_should_close = false;
+        bool m_should_close   = false;
+        double m_current_time = 0;
+        double m_last_time    = 0;
+        double m_dt           = 0;
     };
 } // namespace lame2D
