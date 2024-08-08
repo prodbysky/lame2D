@@ -23,7 +23,16 @@ namespace lame2D {
 
         template <typename T, typename U>
         void DrawRectangle(const lame2D::Rectangle<T, U>& rect,
-                           const lame2D::Color& color);
+                           const lame2D::Color& color) {
+            SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b,
+                                   color.a);
+
+            auto sdL_rect = SDL_Rect{.x = static_cast<int>(rect.pos.x),
+                                     .y = static_cast<int>(rect.pos.y),
+                                     .w = static_cast<int>(rect.size.x),
+                                     .h = static_cast<int>(rect.size.y)};
+            SDL_RenderFillRect(m_renderer, &sdL_rect);
+        }
 
         void Swap();
         void Clear(const lame2D::Color& color);
