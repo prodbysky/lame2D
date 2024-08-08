@@ -6,8 +6,7 @@ namespace lame2D {
         Zero,
         No,
         MouseMove,
-        KeyboardDown,
-        KeyboardUp
+        KeyboardAction,
     };
 
     enum class Key : char {
@@ -63,22 +62,17 @@ namespace lame2D {
         int32_t y;
     };
 
-    struct KeyboardDownEvent {
+    struct KeyboardActionEvent {
         EventType type;
         Key k;
-    };
-
-    struct KeyboardUpEvent {
-        EventType type;
-        Key k;
+        bool down;
     };
 
     union Event {
         EventType type;
         NoEvent no;
         MouseMoveEvent mouse_move;
-        KeyboardDownEvent keyboard_down;
-        KeyboardUpEvent keyboard_up;
+        KeyboardActionEvent keyboard;
     };
 
 } // namespace lame2D

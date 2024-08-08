@@ -1,6 +1,7 @@
 #include "../include/window.hpp"
 
 #include <iostream>
+#include <ostream>
 
 int run(lame2D::Window window);
 
@@ -26,55 +27,32 @@ int run(lame2D::Window window) {
 
         while (event.type != lame2D::EventType::No) {
             switch (event.type) {
-            case lame2D::EventType::KeyboardDown: {
-                switch (event.keyboard_down.k) {
+            case lame2D::EventType::KeyboardAction: {
+                switch (event.keyboard.k) {
                 case lame2D::Key::W: {
-                    velocity.y = -1;
+                    velocity.y = -1 * event.keyboard.down;
                     break;
                 };
                 case lame2D::Key::A: {
-                    velocity.x = -1;
+                    velocity.x = -1 * event.keyboard.down;
                     break;
                 };
                 case lame2D::Key::S: {
-                    velocity.y = 1;
+                    velocity.y = 1 * event.keyboard.down;
                     break;
                 };
                 case lame2D::Key::D: {
-                    velocity.x = 1;
+                    velocity.x = 1 * event.keyboard.down;
                     break;
                 };
                 default:
                     break;
                 }
-                break;
-            };
-            case lame2D::EventType::KeyboardUp: {
-                switch (event.keyboard_up.k) {
-                case lame2D::Key::W: {
-                    velocity.y = 0;
-                    break;
-                };
-                case lame2D::Key::A: {
-                    velocity.x = 0;
-                    break;
-                };
-                case lame2D::Key::S: {
-                    velocity.y = 0;
-                    break;
-                };
-                case lame2D::Key::D: {
-                    velocity.x = 0;
-                    break;
-                };
-                default:
-                    break;
-                }
-                break;
-            };
-            default:
                 break;
             }
+            default:
+                break;
+            };
             event = window.PollEvent();
         }
 
