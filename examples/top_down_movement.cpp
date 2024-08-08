@@ -24,7 +24,6 @@ int run(lame2D::Window window) {
 
     while (!window.ShouldClose()) {
         lame2D::Event event = window.PollEvent();
-
         while (event.type != lame2D::EventType::No) {
             switch (event.type) {
             case lame2D::EventType::KeyboardAction: {
